@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading...</title>
+<script>
+// Extended list of countries, demonyms, and ISO country codes
+const countries = [
+  { demonym: 'Afghan', code: 'AF' },
+  { demonym: 'Albanian', code: 'AL' },
+  { demonym: 'Algerian', code: 'DZ' },
+  { demonym: 'American', code: 'US' },
+  { demonym: 'Andorran', code: 'AD' },
+  { demonym: 'Angolan', code: 'AO' },
+  { demonym: 'Antiguans', code: 'AG' },
+  { demonym: 'Argentine', code: 'AR' },
+  { demonym: 'Armenian', code: 'AM' },
+  { demonym: 'Australian', code: 'AU' },
+  { demonym: 'Austrian', code: 'AT' },
+  { demonym: 'Azerbaijani', code: 'AZ' },
+  { demonym: 'Bahamian', code: 'BS' },
+  { demonym: 'Bahraini', code: 'BH' },
+  { demonym: 'Bangladeshi', code: 'BD' },
+  { demonym: 'Barbadian', code: 'BB' },
+  { demonym: 'Belarusian', code: 'BY' },
+  { demonym: 'Belgian', code: 'BE' },
+  { demonym: 'Belizean', code: 'BZ' },
+  { demonym: 'Beninese', code: 'BJ' },
+  { demonym: 'Bhutanese', code: 'BT' },
+  { demonym: 'Bolivian', code: 'BO' },
+  { demonym: 'Bosnian', code: 'BA' },
+  { demonym: 'Brazilian', code: 'BR' },
+  { demonym: 'British', code: 'GB' },
+  { demonym: 'Bruneian', code: 'BN' },
+  { demonym: 'Bulgarian', code: 'BG' },
+  { demonym: 'Burkinabe', code: 'BF' },
+  { demonym: 'Burmese', code: 'MM' },
+  { demonym: 'Burundian', code: 'BI' },
+  { demonym: 'Cabo Verdean', code: 'CV' },
+  { demonym: 'Cambodian', code: 'KH' },
+  { demonym: 'Cameroonian', code: 'CM' },
+  { demonym: 'Canadian', code: 'CA' },
+  { demonym: 'Caymanian', code: 'KY' },
+  { demonym: 'Central African', code: 'CF' },
+  { demonym: 'Chadian', code: 'TD' },
+  { demonym: 'Chilean', code: 'CL' },
+  { demonym: 'Chinese', code: 'CN' },
+  { demonym: 'Colombian', code: 'CO' },  { demonym: 'Colombian', code: 'CO' },
+  { demonym: 'Comorian', code: 'KM' },
+  { demonym: 'Congolese', code: 'CG' },
+  { demonym: 'Costa Rican', code: 'CR' },
+  { demonym: 'Croatian', code: 'HR' },
+  { demonym: 'Cuban', code: 'CU' },
+  { demonym: 'Cypriot', code: 'CY' },
+  { demonym: 'Czech', code: 'CZ' },
+  { demonym: 'Danish', code: 'DK' },
+  { demonym: 'Djiboutian', code: 'DJ' },
+  { demonym: 'Dominican', code: 'DO' },
+  { demonym: 'Dutch', code: 'NL' },
+  { demonym: 'Ecuadorian', code: 'EC' },
+  { demonym: 'Egyptian', code: 'EG' },
+  { demonym: 'Salvadoran', code: 'SV' },
+  { demonym: 'Equatorial Guinean', code: 'GQ' },
+  { demonym: 'Eritrean', code: 'ER' },
+  { demonym: 'Estonian', code: 'EE' },
+  { demonym: 'Eswatini', code: 'SZ' },
+  { demonym: 'Ethiopian', code: 'ET' },
+  { demonym: 'Fijian', code: 'FJ' },
+  { demonym: 'Finnish', code: 'FI' },
+  { demonym: 'French', code: 'FR' },
+  { demonym: 'Gabonese', code: 'GA' },
+  { demonym: 'Gambian', code: 'GM' },
+  { demonym: 'Georgian', code: 'GE' },
+  { demonym: 'German', code: 'DE' },
+  { demonym: 'Ghanaian', code: 'GH' },
+  { demonym: 'Greek', code: 'GR' },
+  { demonym: 'Grenadian', code: 'GD' },
+  { demonym: 'Guatemalan', code: 'GT' },
+  { demonym: 'Guinea-Bissauan', code: 'GW' },
+  { demonym: 'Guinean', code: 'GN' },
+  { demonym: 'Guyanese', code: 'GY' },
+  { demonym: 'Haitian', code: 'HT' },
+  { demonym: 'Honduran', code: 'HN' },
+  { demonym: 'Hungarian', code: 'HU' },
+  { demonym: 'Icelandic', code: 'IS' },
+  { demonym: 'Indian', code: 'IN' },
+  { demonym: 'Indonesian', code: 'ID' },
+  { demonym: 'Iranian', code: 'IR' },
+  { demonym: 'Iraqi', code: 'IQ' },
+  { demonym: 'Irish', code: 'IE' },
+  { demonym: 'Israeli', code: 'IL' },
+  { demonym: 'Italian', code: 'IT' },
+  { demonym: 'Ivorian', code: 'CI' },
+  { demonym: 'Jamaican', code: 'JM' },
+  { demonym: 'Japanese', code: 'JP' },
+  { demonym: 'Jordanian', code: 'JO' },
+  { demonym: 'Kazakhstani', code: 'KZ' },
+  { demonym: 'Kenyan', code: 'KE' },
+  { demonym: 'I-Kiribati', code: 'KI' },
+  { demonym: 'Korean', code: 'KR' },
+  { demonym: 'Kosovar', code: 'XK' },
+  { demonym: 'Kuwaiti', code: 'KW' },
+  { demonym: 'Kyrgyz', code: 'KG' },
+  { demonym: 'Lao', code: 'LA' },
+  { demonym: 'Latvian', code: 'LV' },
+  { demonym: 'Lebanese', code: 'LB' },
+  { demonym: 'Basotho', code: 'LS' },
+  { demonym: 'Liberian', code: 'LR' },
+  { demonym: 'Libyan', code: 'LY' },
+  { demonym: 'Liechtensteiner', code: 'LI' },
+  { demonym: 'Lithuanian', code: 'LT' },
+  { demonym: 'Luxembourger', code: 'LU' },
+  { demonym: 'Macedonian', code: 'MK' },
+  { demonym: 'Malagasy', code: 'MG' },
+  { demonym: 'Malawian', code: 'MW' },
+  { demonym: 'Malaysian', code: 'MY' },
+  { demonym: 'Maldivian', code: 'MV' },
+  { demonym: 'Malian', code: 'ML' },
+  { demonym: 'Maltese', code: 'MT' },
+  { demonym: 'Marshallese', code: 'MH' },
+  { demonym: 'Mauritanian', code: 'MR' },
+  { demonym: 'Mauritian', code: 'MU' },
+  { demonym: 'Mexican', code: 'MX' },
+  { demonym: 'Micronesian', code: 'FM' },
+  { demonym: 'Moldovan', code: 'MD' },
+  { demonym: 'Monacan', code: 'MC' },
+  { demonym: 'Mongolian', code: 'MN' },
+  { demonym: 'Montenegrin', code: 'ME' },
+  { demonym: 'Moroccan', code: 'MA' },
+  { demonym: 'Mozambican', code: 'MZ' },
+  { demonym: 'Namibian', code: 'NA' },
+  { demonym: 'Nauruan', code: 'NR' },
+  { demonym: 'Nepalese', code: 'NP' },
+  { demonym: 'New Zealander', code: 'NZ' },
+  { demonym: 'Nicaraguan', code: 'NI' },
+  { demonym: 'Nigerien', code: 'NE' },
+  { demonym: 'Nigerian', code: 'NG' },
+  { demonym: 'Norwegian', code: 'NO' },
+  { demonym: 'Omani', code: 'OM' },
+  { demonym: 'Pakistani', code: 'PK' },
+  { demonym: 'Palauan', code: 'PW' },
+  { demonym: 'Panamanian', code: 'PA' },
+  { demonym: 'Papua New Guinean', code: 'PG' },
+  { demonym: 'Paraguayan', code: 'PY' },
+  { demonym: 'Peruvian', code: 'PE' },
+  { demonym: 'Filipino', code: 'PH' },
+  { demonym: 'Polish', code: 'PL' },
+  { demonym: 'Portuguese', code: 'PT' },
+  { demonym: 'Qatari', code: 'QA' },
+  { demonym: 'Romanian', code: 'RO' },
+  { demonym: 'Russian', code: 'RU' },
+  { demonym: 'Rwandan', code: 'RW' },
+    { demonym: 'Rwandan', code: 'RW' },
+  { demonym: 'Saint Lucian', code: 'LC' },
+  { demonym: 'Salvadoran', code: 'SV' },
+  { demonym: 'Samoan', code: 'WS' },
+  { demonym: 'San Marinese', code: 'SM' },
+  { demonym: 'Sao Tomean', code: 'ST' },
+  { demonym: 'Saudi', code: 'SA' },
+  { demonym: 'Scottish', code: 'GB-SCT' },
+  { demonym: 'Senegalese', code: 'SN' },
+  { demonym: 'Serbian', code: 'RS' },
+  { demonym: 'Seychellois', code: 'SC' },
+  { demonym: 'Sierra Leonean', code: 'SL' },
+  { demonym: 'Singaporean', code: 'SG' },
+  { demonym: 'Slovak', code: 'SK' },
+  { demonym: 'Slovenian', code: 'SI' },
+  { demonym: 'Solomon Islander', code: 'SB' },
+  { demonym: 'Somali', code: 'SO' },
+  { demonym: 'South African', code: 'ZA' },
+  { demonym: 'South Korean', code: 'KR' },
+  { demonym: 'South Sudanese', code: 'SS' },
+  { demonym: 'Spanish', code: 'ES' },
+  { demonym: 'Sri Lankan', code: 'LK' },
+  { demonym: 'Sudanese', code: 'SD' },
+  { demonym: 'Surinamese', code: 'SR' },
+  { demonym: 'Swazi', code: 'SZ' },
+  { demonym: 'Swedish', code: 'SE' },
+  { demonym: 'Swiss', code: 'CH' },
+  { demonym: 'Syrian', code: 'SY' },
+  { demonym: 'Taiwanese', code: 'TW' },
+  { demonym: 'Tajik', code: 'TJ' },
+  { demonym: 'Tanzanian', code: 'TZ' },
+  { demonym: 'Thai', code: 'TH' },
+  { demonym: 'Togolese', code: 'TG' },
+  { demonym: 'Tongan', code: 'TO' },
+  { demonym: 'Trinidadian', code: 'TT' },
+  { demonym: 'Tunisian', code: 'TN' },
+  { demonym: 'Turkish', code: 'TR' },
+  { demonym: 'Tuvaluan', code: 'TV' },
+  { demonym: 'Ugandan', code: 'UG' },
+  { demonym: 'Ukrainian', code: 'UA' },
+  { demonym: 'Emirati', code: 'AE' },
+  { demonym: 'British', code: 'GB' },
+  { demonym: 'American', code: 'US' },
+  { demonym: 'Uruguayan', code: 'UY' },
+  { demonym: 'Uzbekistani', code: 'UZ' },
+  { demonym: 'Vanuatuan', code: 'VU' },
+  { demonym: 'Venezuelan', code: 'VE' },
+  { demonym: 'Vietnamese', code: 'VN' },
+  { demonym: 'Welsh', code: 'GB-WLS' },
+  { demonym: 'Yemeni', code: 'YE' },
+  { demonym: 'Zambian', code: 'ZM' },
+  { demonym: 'Zimbabwean', code: 'ZW' },
+];
+
+// Function to pick a random country and update the page content
+function pickRandomCountry() {
+  const randomIndex = Math.floor(Math.random() * countries.length);
+  const country = countries[randomIndex];
+
+  // Update the title
+  document.title = `${country.demonym} Coffee`;
+
+  // Set the flag emoji span and paragraph text
+  document.getElementById('description').textContent = `${country.demonym} Coffee`;
+
+  // Emoji flag is represented by the country's ISO code with Unicode Regional Indicator symbols
+  const flagEmoji = String.fromCodePoint(...[...country.code].map(letter => 0x1F1E6 - 65 + letter.charCodeAt()));
+  document.getElementById('flag').textContent = flagEmoji + ' ☕';
+}
+
+// Run the function when the window loads
+window.onload = pickRandomCountry;
+</script>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+  }
+  p#flag {
+    font-size: 72pt;
+  }
+  p#description {
+    font-size: 16pt;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div>
+<p id="flag">🤔☕</p> <!-- Placeholder emoji, will be replaced by JS -->
+
+<p id="description">Loading...</p> <!-- Placeholder text, will be replaced by JS -->
+</div>
+</body>
+</html>
+
